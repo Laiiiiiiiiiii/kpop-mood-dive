@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11101b">
+  <meta name="description" content="K-pop Mood Dive：依照你現在的心情、能量與情境，探索一首剛剛好的 K-pop 女團歌曲。">
+  <title>K-pop Mood Dive｜把今天交給一首歌</title>
+  <style>
+    :root{color-scheme:dark;--bg:#10101a;--surface:#191923;--surface2:#23212e;--line:rgba(255,255,255,.13);--text:#f9f6ff;--muted:#b8b1c4;--pink:#ff84ba;--blue:#8e91ff;--lime:#d5ff9d;--radius:22px}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-width:320px;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;overflow-x:hidden}
+    body::before{content:"";position:fixed;top:-250px;right:-160px;width:690px;height:690px;pointer-events:none;background:radial-gradient(circle,rgba(118,91,186,.27),transparent 68%);z-index:-1}
+    a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--lime);outline-offset:4px}
+    .shell{width:min(1180px,calc(100% - 48px));margin:0 auto}
+    .topbar{height:88px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.5px;font-size:18px}.logo-mark{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,var(--pink),var(--blue));color:#12101b;font-size:19px;transform:rotate(-14deg)}
+    .top-links{display:flex;gap:28px;align-items:center;color:var(--muted);font-size:13px;font-weight:700}.top-links a:hover{color:white}.saved-pill{padding:9px 14px;border:1px solid var(--line);border-radius:50px;color:var(--text)!important}
+    .hero{padding:45px 0 42px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;min-height:492px;gap:8px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;letter-spacing:2.3px;text-transform:uppercase;font-size:11px;font-weight:800;color:var(--lime)}.eyebrow::before{content:"";width:23px;height:1px;background:currentColor}
+    h1{font-weight:900;font-size:clamp(49px,6.35vw,88px);line-height:1.12;letter-spacing:-3.3px;margin:27px 0 23px}h1 em{font-style:normal;color:var(--pink)}
+    .hero-copy>p{max-width:470px;color:var(--muted);font-size:16px;line-height:1.9;margin:0}.hero-actions{display:flex;align-items:center;gap:18px;margin-top:32px;flex-wrap:wrap}
+    .primary{border:0;border-radius:14px;padding:15px 24px;background:var(--lime);color:#191727;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 30px rgba(213,255,157,.12);transition:transform .2s,box-shadow .2s}.primary:hover{transform:translateY(-2px);box-shadow:0 16px 37px rgba(213,255,157,.22)}
+    .plain-link{font-weight:800;font-size:13px;color:#dcd7e6}.plain-link:hover{color:var(--pink)}
+    .hero-art{position:relative;height:400px;display:grid;place-items:center;isolation:isolate}.art-halo{width:410px;height:410px;position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,129,181,.23),rgba(104,91,176,.17) 43%,transparent 70%);filter:blur(7px)}
+    .disc{position:relative;width:318px;height:318px;border-radius:50%;display:grid;place-items:center;background:repeating-radial-gradient(circle at center,transparent 0 3px,rgba(255,255,255,.058) 4px 4.8px,transparent 5px 9px),conic-gradient(from 80deg,#12101f,#292137,#100f19,#45405c,#171425,#36253e,#12101f);border:7px solid #2e2a3d;box-shadow:0 28px 48px rgba(0,0,0,.45),0 0 0 1px #5a485d;animation:spin 22s linear infinite}
+    .disc::before{content:"";position:absolute;inset:25px;border:1px solid rgba(255,255,255,.17);border-radius:50%}.disc::after{content:"";position:absolute;inset:45px;border:1px solid rgba(255,255,255,.09);border-radius:50%}
+    .disc-center{position:relative;z-index:1;width:122px;height:122px;border:5px solid #e1bad9;border-radius:50%;background:linear-gradient(145deg,#d987b4,#8f7bbb);display:grid;place-items:center;color:#21152c;text-align:center;font-size:10px;font-weight:1000;letter-spacing:2px;line-height:1.7}.disc-center::after{content:"";position:absolute;width:11px;height:11px;background:#1c1424;border-radius:50%}
+    .disc-center span{position:absolute;top:16px}.disc-center b{position:absolute;bottom:16px;font-size:10px}
+    .floating{position:absolute;padding:10px 14px;border-radius:12px;background:#2d2939;border:1px solid #574a65;font-size:12px;font-weight:900;box-shadow:0 20px 25px rgba(0,0,0,.22)}.floating.first{right:0;top:55px;transform:rotate(9deg);color:var(--pink)}.floating.second{bottom:42px;left:9px;transform:rotate(-8deg);color:var(--lime)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}.section-head h2{margin:0;font-size:27px;letter-spacing:-1px}.mini-label{color:var(--pink);font-size:11px;letter-spacing:2px;font-weight:900;text-transform:uppercase;display:block;margin-bottom:6px}.section-note{font-size:12px;color:var(--muted)}
+    .workspace{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(43,37,54,.86),rgba(23,23,33,.95));padding:30px;box-shadow:0 18px 40px rgba(0,0,0,.15)}
+    .label{font-weight:900;font-size:14px;display:flex;align-items:center;gap:12px;margin-bottom:14px}.number{color:var(--pink);font:800 12px/1 monospace}.field+.field{margin-top:26px}
+    .choice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.mood-choice{background:#282535;border:1px solid #454050;border-radius:15px;text-align:left;min-height:108px;padding:15px 12px;color:var(--text);transition:transform .15s,border-color .15s,background .15s;position:relative}.mood-choice:hover{transform:translateY(-2px);border-color:#a891b8}.mood-choice[aria-pressed=true]{border-color:var(--pink);background:#453047;box-shadow:inset 0 0 0 1px var(--pink)}.mood-choice[aria-pressed=true]::after{content:"✓";position:absolute;top:9px;right:10px;color:var(--pink);font-weight:900}.mood-emoji{display:block;font-size:26px;margin-bottom:7px}.mood-choice strong{display:block;font-size:13px}.mood-choice small{display:block;color:#aca2b7;font-size:11px;margin-top:2px}
+    .field-pair{display:grid;grid-template-columns:1fr 1.15fr;gap:28px;margin-top:26px}.field-pair .field{margin-top:0}
+    .range-header{display:flex;justify-content:space-between;gap:15px}.energy-value{color:var(--lime);font-size:13px;font-weight:900}.slider{width:100%;accent-color:var(--pink);cursor:pointer;margin-top:12px}.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:5px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border-radius:50px;padding:9px 13px;border:1px solid #494355;background:#272432;color:#dad4e3;font-size:12px;font-weight:750;transition:background .15s,border-color .15s}.chip:hover{border-color:#ad96bc}.chip[aria-pressed=true]{background:#ece1fb;color:#251b32;border-color:#ece1fb}
+    .bottom-control{display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid var(--line);margin-top:30px;padding-top:25px;flex-wrap:wrap}.control-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.secondary{border:1px solid #777087;padding:14px 19px;background:transparent;border-radius:14px;color:var(--text);font-weight:800;transition:background .15s}.secondary:hover{background:#342e41}.helper{color:var(--muted);font-size:12px;max-width:355px}
+    .results{padding:63px 0 28px;scroll-margin-top:20px}.empty{min-height:195px;border:1px dashed #5d536c;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;background:#191722;color:var(--muted);padding:24px}.empty-icon{font-size:36px}.empty strong{color:var(--text);font-size:16px}.empty p{font-size:13px;margin:0}
+    .results-summary{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin:-4px 0 20px}
+    .song-grid{display:grid;grid-template-columns:1.28fr 1fr 1fr;gap:14px}.song-card{border:1px solid var(--line);background:var(--surface);border-radius:20px;overflow:hidden;min-width:0;display:flex;flex-direction:column}.song-card.featured{background:#211c2d;border-color:#665579}.cover{min-height:188px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;isolation:isolate}.song-card.featured .cover{min-height:230px}.cover::before{content:"";position:absolute;inset:-55%;background:repeating-radial-gradient(circle at 50% 45%,transparent 0 23px,rgba(255,255,255,.09) 24px 25px,transparent 26px 39px);transform:rotate(-14deg);z-index:-1}.cover::after{content:"✦";position:absolute;top:14px;right:19px;font-size:24px;opacity:.6}.cover-symbol{width:82px;height:82px;border:2px solid rgba(255,255,255,.46);border-radius:50%;display:grid;place-items:center;font-size:40px;transform:rotate(-15deg);background:rgba(255,255,255,.08)}.cover-kicker{font-size:11px;text-transform:uppercase;letter-spacing:2.2px;font-weight:900}.cover-a{background:linear-gradient(130deg,#ad61b0,#4a348c)}.cover-b{background:linear-gradient(130deg,#f27c9b,#ac446e)}.cover-c{background:linear-gradient(130deg,#417a92,#6b65a9)}.cover-d{background:linear-gradient(130deg,#9d7ac1,#3a5179)}.cover-e{background:linear-gradient(130deg,#967a50,#c26382)}
+    .song-info{padding:21px;display:flex;flex-direction:column;flex:1}.song-rank{font-size:10px;color:var(--lime);font-weight:950;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:8px}.song-title{font-size:clamp(19px,2vw,25px);margin:0;line-height:1.26;letter-spacing:-.8px;word-break:break-word}.song-group{color:#c5bccc;font-size:13px;font-weight:700;margin-top:5px}.song-reason{font-size:12px;color:var(--muted);line-height:1.8;margin:15px 0 18px;flex:1}.song-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:17px}.song-tag{font-size:10px;background:#33303f;border-radius:20px;padding:4px 8px;color:#d5ccdf}.song-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.watch{border:1px solid #60576b;border-radius:10px;padding:9px 12px;font-size:11px;font-weight:900;color:white;background:#363041}.watch:hover{background:#494052}.save{margin-left:auto;display:flex;align-items:center;gap:6px;padding:9px 11px;border:1px solid #5a5067;border-radius:10px;font-size:11px;font-weight:900;background:transparent;color:var(--text)}.save[aria-pressed=true]{color:#23182e;background:var(--pink);border-color:var(--pink)}
+    .saved-section{padding:35px 0 50px;scroll-margin-top:20px}.saved-box{padding:23px;border:1px solid var(--line);border-radius:var(--radius);background:#191822}.saved-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.saved-head h3{margin:0;font-size:19px}.saved-note{color:var(--muted);font-size:12px}.saved-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:19px}.saved-item{display:flex;align-items:center;gap:12px;background:#272433;padding:12px;border-radius:13px;min-width:0}.saved-thumb{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#bb7cac,#5d538a);flex:none;font-size:19px}.saved-meta{flex:1;min-width:0}.saved-meta strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.saved-meta small{color:var(--muted);font-size:11px}.remove{background:none;border:none;color:var(--pink);padding:6px;font-size:12px;font-weight:800}.saved-empty{font-size:13px;color:var(--muted);padding:6px 0 2px}.saved-actions{display:flex;gap:8px;flex-wrap:wrap}.outline-small{background:transparent;border:1px solid #686078;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:900;color:var(--text)}.outline-small:hover{background:#3c3446}.outline-small:disabled{opacity:.4;cursor:not-allowed}
+    footer{border-top:1px solid var(--line);padding:26px 0 42px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11px}footer b{color:white}.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);background:#eef9dd;color:#171b15;border-radius:12px;padding:12px 18px;font-weight:800;font-size:13px;box-shadow:0 14px 60px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:880px){.hero{grid-template-columns:1fr .8fr}.hero-art{height:310px}.disc{width:248px;height:248px}.art-halo{width:300px;height:300px}.floating.first{right:-5px}.choice-grid{grid-template-columns:repeat(3,1fr)}.field-pair{grid-template-columns:1fr}.song-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.song-card.featured{grid-column:span 2}.song-card.featured{display:grid;grid-template-columns:1fr 1fr}.song-card.featured .cover{min-height:260px}}
+    @media(max-width:620px){.shell{width:min(100% - 28px,1180px)}.topbar{height:70px}.top-links{gap:12px}.top-links>a:first-child{display:none}.logo{font-size:16px}.hero{padding:22px 0 37px;grid-template-columns:1fr;min-height:auto}.hero-art{height:235px;order:-1}.disc{width:198px;height:198px;border-width:5px}.disc-center{width:91px;height:91px;font-size:8px}.disc-center span{top:10px}.disc-center b{bottom:9px}.floating{font-size:10px;padding:8px 10px}.floating.first{right:7%;top:31px}.floating.second{left:4%;bottom:25px}.hero-copy{text-align:center}.hero-copy>.eyebrow{justify-content:center}h1{font-size:clamp(47px,10.2vw,66px);letter-spacing:-2.2px;margin:17px 0}.hero-copy>p{margin:0 auto;font-size:14px}.hero-actions{justify-content:center;margin-top:22px}.section-head h2{font-size:23px}.section-note{display:none}.workspace{padding:19px 15px}.choice-grid{grid-template-columns:repeat(2,1fr)}.mood-choice{min-height:94px}.field-pair{gap:25px}.bottom-control{margin-top:25px}.bottom-control .helper{order:2}.control-actions{width:100%;display:grid;grid-template-columns:1fr 1fr}.control-actions button{padding:13px 9px}.results{padding-top:45px}.song-grid{grid-template-columns:1fr}.song-card.featured{grid-column:auto;display:flex}.song-card.featured .cover{min-height:212px}.song-card .cover{min-height:169px}.saved-list{grid-template-columns:1fr}.saved-head{align-items:flex-start}.song-info{padding:18px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar shell">
+    <a class="logo" href="#top" aria-label="K-pop Mood Dive 回到首頁"><span class="logo-mark" aria-hidden="true">♪</span><span>mood<span style="color:var(--pink)">dive.</span></span></a>
+    <nav class="top-links" aria-label="主要導覽"><a href="#playground">探索歌曲</a><a class="saved-pill" href="#my-playlist">♡ 我的歌單 <span id="nav-count">0</span></a></nav>
+  </header>
+  <main id="top" class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow">A LITTLE MUSIC, A LOT OF FEELING</span>
+        <h1 id="hero-title">把今天，<br>交給一首<br><em>對的歌。</em></h1>
+        <p>心情很難說清楚？沒關係。選一個現在的自己，讓 K-pop 女團歌曲替你把感覺唱出來。</p>
+        <div class="hero-actions"><a class="primary" href="#playground">開始尋找我的 BGM <span aria-hidden="true">↗</span></a><a class="plain-link" href="#my-playlist">查看收藏歌單 →</a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-halo"></div><div class="disc"><div class="disc-center"><span>YOUR DAILY</span><b>MOOD DIVE</b></div></div>
+        <div class="floating first">✦ CURRENT VIBE: YOU</div><div class="floating second">♫ GIRL GROUP ENERGY</div>
+      </div>
+    </section>
+
+    <section id="playground" aria-labelledby="form-title">
+      <div class="section-head"><div><span class="mini-label">01 / FIND YOUR VIBE</span><h2 id="form-title">告訴我，今天是什麼心情？</h2></div><span class="section-note">不用登入 · 免費體驗 · 無需 API</span></div>
+      <div class="workspace">
+        <div class="field"><div class="label"><span class="number">01</span> 今天比較接近哪一種心情？</div>
+          <div class="choice-grid" id="mood-options" role="group" aria-label="心情選擇">
+            <button type="button" class="mood-choice" data-mood="hype" aria-pressed="false"><span class="mood-emoji" aria-hidden="true">⚡</span><strong>高能放電</strong><small>想要立刻充電</small></button>
+            <button type="button" class="mood-choice" data-mood="love" aria-pressed="false"><span class="mood-emoji" aria-hidden="true">💗</span><strong>心動冒泡</strong><small>今天有點甜</small></button>
+            <button type="button" class="mood-choice" data-mood="confidence" aria-pressed="true"><span class="mood-emoji" aria-hidden="true">✨</span><strong>自信開大</strong><small>我的主場時間</small></button>
+            <button type="button" class="mood-choice" data-mood="comfort" aria-pressed="false"><span class="mood-emoji" aria-hidden="true">☁️</span><strong>需要抱抱</strong><small>慢慢來也很好</small></button>
+            <button type="button" class="mood-choice" data-mood="night" aria-pressed="false"><span class="mood-emoji" aria-hidden="true">🌙</span><strong>深夜沉浸</strong><small>獨處的電影感</small></button>
+          </div>
+        </div>
+        <div class="field-pair">
+          <div class="field"><div class="range-header"><label for="energy" class="label" style="margin:0"><span class="number">02</span> 你想要多有能量？</label><span class="energy-value" id="energy-text">3 / 5 · 剛剛好</span></div><input class="slider" id="energy" type="range" min="1" max="5" step="1" value="3" aria-label="歌曲能量 1 到 5"><div class="scale"><span>放鬆慢節奏</span><span>熱血大爆發</span></div></div>
+          <div class="field"><div class="label"><span class="number">03</span> 這首歌要陪你做什麼？</div><div class="chips" id="scene-options" role="group" aria-label="聆聽情境">
+            <button class="chip" type="button" data-scene="commute" aria-pressed="true">🚇 通勤</button>
+            <button class="chip" type="button" data-scene="study" aria-pressed="false">📚 讀書 / 工作</button>
+            <button class="chip" type="button" data-scene="workout" aria-pressed="false">🏃 運動</button>
+            <button class="chip" type="button" data-scene="walk" aria-pressed="false">🌆 散步</button>
+            <button class="chip" type="button" data-scene="night" aria-pressed="false">🌃 夜晚獨處</button>
+          </div></div>
+        </div>
+        <div class="field"><div class="label"><span class="number">04</span> 想先聽哪個女團？</div><div class="chips" id="group-options" role="group" aria-label="女團選擇">
+          <button class="chip" type="button" data-group="all" aria-pressed="true">全部探索</button>
+          <button class="chip" type="button" data-group="IVE" aria-pressed="false">IVE</button>
+          <button class="chip" type="button" data-group="TWICE" aria-pressed="false">TWICE</button>
+          <button class="chip" type="button" data-group="ITZY" aria-pressed="false">ITZY</button>
+          <button class="chip" type="button" data-group="NMIXX" aria-pressed="false">NMIXX</button>
+          <button class="chip" type="button" data-group="(G)I-DLE" aria-pressed="false">(G)I-DLE</button>
+        </div></div>
+        <div class="bottom-control"><div class="helper">我們用自訂的歌曲標籤與配對分數推薦，不需連線，也不會上傳你的選擇。</div><div class="control-actions"><button class="secondary" id="surprise" type="button">✧ 讓命運選歌</button><button class="primary" id="recommend" type="button">生成我的專屬歌單 ↗</button></div></div>
+      </div>
+    </section>
+
+    <section id="results" class="results" aria-labelledby="results-title">
+      <div class="section-head"><div><span class="mini-label">02 / YOUR SOUNDTRACK</span><h2 id="results-title">你的今日主題曲</h2></div><span class="section-note">每次都是新的音樂靈感</span></div>
+      <div id="result-body" aria-live="polite"><div class="empty"><span class="empty-icon" aria-hidden="true">♫</span><strong>你的主題曲，正在等你選擇心情。</strong><p>完成上方選擇並按下「生成我的專屬歌單」，看看今天是哪首歌。</p></div></div>
+    </section>
+
+    <section id="my-playlist" class="saved-section" aria-labelledby="playlist-title">
+      <div class="section-head"><div><span class="mini-label">03 / KEEP WHAT YOU LOVE</span><h2 id="playlist-title">♡ 我的私藏歌單</h2></div></div>
+      <div class="saved-box"><div class="saved-head"><div><h3>你的心動收藏 <span id="saved-count" style="color:var(--pink)">0</span></h3><div class="saved-note">收藏會保存在目前瀏覽器中，重新開啟仍可查看。</div></div><div class="saved-actions"><button class="outline-small" id="copy-list" type="button">複製歌單</button><button class="outline-small" id="clear-list" type="button">清空收藏</button></div></div><div id="saved-list" class="saved-list"><p class="saved-empty">還沒有歌曲。找到喜歡的歌後，點 ♡ 放進這裡吧。</p></div></div>
+    </section>
+  </main>
+  <footer class="shell"><span><b>mooddive.</b> — Every mood deserves a soundtrack.</span><span>個人練習作品 · 歌單為自訂規則推薦，非串流平台官方服務</span></footer>
+  <div id="toast" role="status" aria-live="polite" class="toast"></div>
+
+  <script>
+    'use strict';
+    // 歌曲資料與音樂氛圍標籤為本專案人工設計；不使用個人化追蹤或遠端 API。
+    const songs = [
+      {id:'ive-love-dive',title:'LOVE DIVE',group:'IVE',moods:['love','confidence','night'],energy:4,scenes:['commute','walk','night'],hint:'優雅又神祕的節奏，讓普通日常變成自己的電影。'},
+      {id:'ive-i-am',title:'I AM',group:'IVE',moods:['confidence','hype'],energy:5,scenes:['commute','workout','walk'],hint:'今天想抬頭挺胸、走出自己的步伐，就選這首。'},
+      {id:'ive-either-way',title:'Either Way',group:'IVE',moods:['comfort','night'],energy:2,scenes:['study','walk','night'],hint:'當你不想急著證明什麼，讓歌聲陪你慢慢整理心情。'},
+      {id:'ive-after-like',title:'After LIKE',group:'IVE',moods:['love','hype'],energy:5,scenes:['commute','workout','walk'],hint:'節奏明亮又俐落，讓心動一路加速。'},
+      {id:'ive-off-record',title:'Off The Record',group:'IVE',moods:['night','comfort','love'],energy:2,scenes:['study','walk','night'],hint:'適合把時間放慢，保留一點只屬於自己的秘密。'},
+      {id:'ive-heya',title:'HEYA',group:'IVE',moods:['hype','confidence'],energy:5,scenes:['commute','workout'],hint:'鮮明的能量感，適合重新找回氣勢。'},
+      {id:'twice-feel-special',title:'Feel Special',group:'TWICE',moods:['comfort','confidence'],energy:3,scenes:['commute','walk','study'],hint:'需要被鼓勵的時候，聽聽這首溫柔又閃亮的歌。'},
+      {id:'twice-what-is-love',title:'What is Love?',group:'TWICE',moods:['love','hype'],energy:4,scenes:['commute','walk'],hint:'輕快又俏皮，替小小的心動加上一層濾鏡。'},
+      {id:'twice-fancy',title:'FANCY',group:'TWICE',moods:['love','confidence','hype'],energy:5,scenes:['commute','workout'],hint:'自信和甜蜜都不需要二選一，今天就大聲喜歡。'},
+      {id:'twice-icsm',title:"I CAN'T STOP ME",group:'TWICE',moods:['hype','night'],energy:5,scenes:['commute','workout','night'],hint:'節奏一啟動，就很難不跟著一路衝刺。'},
+      {id:'twice-one-spark',title:'ONE SPARK',group:'TWICE',moods:['love','comfort','confidence'],energy:4,scenes:['commute','walk'],hint:'溫暖的情緒和推進感，適合替今天加一點光。'},
+      {id:'twice-moonlight',title:'MOONLIGHT SUNRISE',group:'TWICE',moods:['night','love'],energy:3,scenes:['walk','night'],hint:'適合夜晚耳機裡的小小浪漫。'},
+      {id:'itzy-wannabe',title:'WANNABE',group:'ITZY',moods:['confidence','hype'],energy:5,scenes:['commute','workout'],hint:'不用成為別人，走自己的路就夠酷。'},
+      {id:'itzy-loco',title:'LOCO',group:'ITZY',moods:['love','hype'],energy:5,scenes:['commute','workout'],hint:'心跳加速的時候，就讓強烈節奏一起失控。'},
+      {id:'itzy-bet-on-me',title:'BET ON ME',group:'ITZY',moods:['comfort','confidence'],energy:3,scenes:['study','walk','night'],hint:'遇到不確定的事情，也可以先相信自己一次。'},
+      {id:'itzy-sneakers',title:'SNEAKERS',group:'ITZY',moods:['hype','confidence'],energy:5,scenes:['commute','workout','walk'],hint:'適合甩開壓力，為自己按下快樂開關。'},
+      {id:'itzy-none-of-my-business',title:'None of My Business',group:'ITZY',moods:['night','comfort'],energy:3,scenes:['walk','night','study'],hint:'輕輕鬆開煩人的念頭，夜色也可以很自在。'},
+      {id:'nmixx-dash',title:'DASH',group:'NMIXX',moods:['hype','confidence'],energy:5,scenes:['commute','workout'],hint:'節奏轉折和爆發力，為今天開一條新跑道。'},
+      {id:'nmixx-lmlt',title:'Love Me Like This',group:'NMIXX',moods:['love','confidence','hype'],energy:4,scenes:['commute','workout','walk'],hint:'輕盈又有律動感，走路都會自帶節拍。'},
+      {id:'nmixx-roller',title:'Roller Coaster',group:'NMIXX',moods:['love','comfort'],energy:3,scenes:['commute','walk','study'],hint:'像微風一樣輕快的旋律，剛好適合心情轉晴。'},
+      {id:'nmixx-cool',title:'COOL (Your rainbow)',group:'NMIXX',moods:['comfort','night'],energy:2,scenes:['study','walk','night'],hint:'想安靜一下的時候，讓這首歌接住情緒。'},
+      {id:'nmixx-see-that',title:'See that?',group:'NMIXX',moods:['hype','confidence'],energy:5,scenes:['commute','workout'],hint:'帶點挑戰感的律動，適合準備向前衝的你。'},
+      {id:'idle-queencard',title:'Queencard',group:'(G)I-DLE',moods:['confidence','hype'],energy:5,scenes:['commute','workout','walk'],hint:'自己的魅力自己定義，今天就大方閃耀。'},
+      {id:'idle-tomboy',title:'TOMBOY',group:'(G)I-DLE',moods:['confidence','hype'],energy:5,scenes:['commute','workout'],hint:'帶著態度的節拍，剛好把猶豫甩在身後。'},
+      {id:'idle-nxde',title:'Nxde',group:'(G)I-DLE',moods:['confidence','night'],energy:4,scenes:['commute','night','walk'],hint:'有個性又帶點戲劇張力，適合展現自己的風格。'},
+      {id:'idle-fate',title:'Fate',group:'(G)I-DLE',moods:['comfort','night'],energy:2,scenes:['study','walk','night'],hint:'輕柔、帶點感性，適合慢慢回想一天的片段。'},
+      {id:'idle-allergy',title:'Allergy',group:'(G)I-DLE',moods:['comfort','confidence'],energy:3,scenes:['study','walk'],hint:'不必和所有人比較，給自己一點理解和空間。'}
+    ];
+    const moodNames={hype:'高能放電',love:'心動冒泡',confidence:'自信開大',comfort:'需要抱抱',night:'深夜沉浸'};
+    const sceneNames={commute:'通勤',study:'讀書 / 工作',workout:'運動',walk:'散步',night:'夜晚獨處'};
+    const icons={hype:'⚡',love:'💗',confidence:'✨',comfort:'☁️',night:'🌙'};
+    const themes={'IVE':'cover-a','TWICE':'cover-b','ITZY':'cover-c','NMIXX':'cover-d','(G)I-DLE':'cover-e'};
+    const state={mood:'confidence',energy:3,scene:'commute',group:'all'};
+    const STORAGE_KEY='mooddive-favorites-v1';
+    const byId=new Map(songs.map(s=>[s.id,s]));
+    let favorites=loadFavorites(),lastResults=[],runNumber=0,toastTimeout;
+    const $=id=>document.getElementById(id);
+
+    function loadFavorites(){try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(data)?data.filter(id=>typeof id==='string'&&byId.has(id)):[]}catch(e){return []}}
+    function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(favorites))}catch(e){showToast('此瀏覽器無法儲存，收藏僅保留到本頁關閉')}}
+    function showToast(message){const t=$('toast');t.textContent=message;t.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>t.classList.remove('show'),2800)}
+    function selectButtons(containerId,key,value,selector){state[key]=value;document.querySelectorAll('#'+containerId+' '+selector).forEach(button=>button.setAttribute('aria-pressed',String(button.dataset[key]===value)))}
+    $('mood-options').addEventListener('click',e=>{const btn=e.target.closest('[data-mood]');if(btn)selectButtons('mood-options','mood',btn.dataset.mood,'[data-mood]')});
+    $('scene-options').addEventListener('click',e=>{const btn=e.target.closest('[data-scene]');if(btn)selectButtons('scene-options','scene',btn.dataset.scene,'[data-scene]')});
+    $('group-options').addEventListener('click',e=>{const btn=e.target.closest('[data-group]');if(btn)selectButtons('group-options','group',btn.dataset.group,'[data-group]')});
+    $('energy').addEventListener('input',e=>{state.energy=Number(e.target.value);updateEnergyText()});
+    function updateEnergyText(){const labels={1:'靜靜放鬆',2:'輕柔陪伴',3:'剛剛好',4:'節奏開啟',5:'全力放電'};$('energy-text').textContent=`${state.energy} / 5 · ${labels[state.energy]}`}
+    function scoreSong(song){const mood= song.moods.includes(state.mood)?9:0;const scene=song.scenes.includes(state.scene)?3:0;const energy=4-Math.abs(song.energy-state.energy)*1.15;const moodPriority=song.moods[0]===state.mood?1.5:0;return mood+scene+energy+moodPriority}
+    function recommend(shuffle=false){runNumber++;
+      const eligible=songs.filter(s=>state.group==='all'||s.group===state.group);
+      const ranked=eligible.map(song=>({song,score:scoreSong(song),jitter:shuffle?Math.random()*5:Math.random()*1.4})).sort((a,b)=>(b.score+b.jitter)-(a.score+a.jitter));
+      // 同一組條件下也能透過小幅重新抽樣發現不同曲目；分數始終是主要排序依據。
+      lastResults=ranked.slice(0,3).map(x=>x.song);
+      renderResults();$('results').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    function why(song){const parts=[];
+      if(song.moods.includes(state.mood))parts.push(`符合「${moodNames[state.mood]}」的心情`);
+      if(song.scenes.includes(state.scene))parts.push(`適合${sceneNames[state.scene]}時聽`);
+      if(Math.abs(song.energy-state.energy)<=1)parts.push('能量接近你的選擇');
+      return (parts.length?parts.join('、')+'。':'雖不是完全吻合，但在你選擇的曲目範圍中相對接近。')+' '+song.hint;
+    }
+    function createCard(song,index){const article=document.createElement('article');article.className='song-card'+(index===0?' featured':'');
+      const cover=document.createElement('div');cover.className='cover '+themes[song.group];cover.innerHTML=`<span class="cover-symbol" aria-hidden="true">${icons[song.moods[0]]}</span><span class="cover-kicker">MOOD MATCH</span>`;
+      const info=document.createElement('div');info.className='song-info';
+      const rank=document.createElement('div');rank.className='song-rank';rank.textContent=index===0?'✦ TOP PICK / 今日主打':`PICK 0${index+1} / 也很適合`;
+      const title=document.createElement('h3');title.className='song-title';title.textContent=song.title;
+      const group=document.createElement('div');group.className='song-group';group.textContent=song.group;
+      const reason=document.createElement('p');reason.className='song-reason';reason.textContent=why(song);
+      const tags=document.createElement('div');tags.className='song-tags';song.moods.slice(0,2).forEach(m=>{const span=document.createElement('span');span.className='song-tag';span.textContent=icons[m]+' '+moodNames[m];tags.append(span)});
+      const actions=document.createElement('div');actions.className='song-actions';
+      const watch=document.createElement('a');watch.className='watch';watch.href='https://www.youtube.com/results?search_query='+encodeURIComponent(song.group+' '+song.title+' official');watch.target='_blank';watch.rel='noopener noreferrer';watch.textContent='▶ 去聽歌曲 ↗';watch.setAttribute('aria-label',`前往 YouTube 搜尋 ${song.group} ${song.title}`);
+      const save=document.createElement('button');save.className='save';save.type='button';save.dataset.saveId=song.id;save.setAttribute('aria-label',`收藏 ${song.group} ${song.title}`);updateSaveButton(save,song.id);
+      actions.append(watch,save);info.append(rank,title,group,reason,tags,actions);article.append(cover,info);return article;
+    }
+    function updateSaveButton(button,id){const saved=favorites.includes(id);button.setAttribute('aria-pressed',String(saved));button.textContent=saved?'♥ 已收藏':'♡ 收藏'}
+    function renderResults(){const body=$('result-body');body.replaceChildren();
+      const summary=document.createElement('div');summary.className='results-summary';const description=document.createElement('span');description.textContent=`為「${moodNames[state.mood]}」×「${sceneNames[state.scene]}」挑選 · 能量 ${state.energy}/5${state.group==='all'?'':' · '+state.group}`;
+      const again=document.createElement('button');again.className='outline-small';again.type='button';again.textContent='↻ 同條件再抽一次';again.addEventListener('click',()=>recommend(true));summary.append(description,again);
+      const grid=document.createElement('div');grid.className='song-grid';lastResults.forEach((s,i)=>grid.append(createCard(s,i)));body.append(summary,grid);
+    }
+    $('result-body').addEventListener('click',e=>{const button=e.target.closest('[data-save-id]');if(button)toggleFavorite(button.dataset.saveId)});
+    function toggleFavorite(id){if(!byId.has(id))return;
+      if(favorites.includes(id)){favorites=favorites.filter(x=>x!==id);showToast('已從私藏歌單移除')}else{favorites.push(id);showToast('已加入私藏歌單 ♡')}
+      persist();renderSaved();document.querySelectorAll('[data-save-id]').forEach(button=>updateSaveButton(button,button.dataset.saveId));
+    }
+    function renderSaved(){const count=favorites.length;$('saved-count').textContent=count;$('nav-count').textContent=count;
+      $('copy-list').disabled=!count;$('clear-list').disabled=!count;
+      const list=$('saved-list');list.replaceChildren();if(!count){const p=document.createElement('p');p.className='saved-empty';p.textContent='還沒有歌曲。找到喜歡的歌後，點 ♡ 放進這裡吧。';list.append(p);return}
+      favorites.forEach(id=>{const song=byId.get(id);if(!song)return;const item=document.createElement('div');item.className='saved-item';
+        const thumb=document.createElement('span');thumb.className='saved-thumb';thumb.textContent=icons[song.moods[0]];thumb.setAttribute('aria-hidden','true');
+        const meta=document.createElement('div');meta.className='saved-meta';const title=document.createElement('strong');title.textContent=song.title;const group=document.createElement('small');group.textContent=song.group;meta.append(title,group);
+        const remove=document.createElement('button');remove.type='button';remove.className='remove';remove.dataset.removeId=id;remove.textContent='移除';remove.setAttribute('aria-label',`移除 ${song.group} ${song.title}`);
+        item.append(thumb,meta,remove);list.append(item)
+      });
+    }
+    $('saved-list').addEventListener('click',e=>{const btn=e.target.closest('[data-remove-id]');if(btn)toggleFavorite(btn.dataset.removeId)});
+    $('clear-list').addEventListener('click',()=>{if(!favorites.length)return;if(!window.confirm('確定清空全部收藏歌曲？'))return;favorites=[];persist();renderSaved();document.querySelectorAll('[data-save-id]').forEach(b=>updateSaveButton(b,b.dataset.saveId));showToast('收藏已清空')});
+    $('copy-list').addEventListener('click',async()=>{if(!favorites.length)return;const text=['K-pop Mood Dive · 我的私藏歌單',...favorites.map((id,i)=>{const s=byId.get(id);return `${i+1}. ${s.group} - ${s.title}`})].join('\n');
+      try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text)}else{const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.append(area);area.select();const ok=document.execCommand('copy');area.remove();if(!ok)throw new Error('copy failed')}showToast('歌單已複製，可以貼到訊息中分享！')}catch(e){showToast('無法自動複製，請改在 HTTPS 網站開啟')}});
+    $('recommend').addEventListener('click',()=>recommend(false));
+    $('surprise').addEventListener('click',()=>{const moods=Object.keys(moodNames),scenes=Object.keys(sceneNames);const random=a=>a[Math.floor(Math.random()*a.length)];selectButtons('mood-options','mood',random(moods),'[data-mood]');selectButtons('scene-options','scene',random(scenes),'[data-scene]');selectButtons('group-options','group','all','[data-group]');state.energy=1+Math.floor(Math.random()*5);$('energy').value=state.energy;updateEnergyText();recommend(true)});
+    renderSaved();updateEnergyText();
+  </script>
+</body>
+</html>
